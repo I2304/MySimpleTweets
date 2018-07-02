@@ -8,17 +8,24 @@
 
     <EditText
         android:id="@+id/et_simple"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </EditText>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></EditText>
 
     <Button
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:onClick="onSubmit"
         android:layout_below="@+id/et_simple"
+        android:onClick="onSubmit"
         android:text="Post" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/et_simple"
+        android:text="Character Count" />
 
 </RelativeLayout>
