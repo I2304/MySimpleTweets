@@ -53,7 +53,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         return mTweets.size();
     }
 
+    // Clean all elements of the recycler
+    public void clear() {
+        mTweets.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Tweet> list) {
+        mTweets.addAll(list);
+        notifyDataSetChanged();
+    }
+
     // create ViewHolder class
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView ivProfileImage;
@@ -65,20 +78,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-
         }
-    }
-
-    // Clean all elements of the recycler
-    public void clear() {
-        mTweets.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Tweet> list) {
-        mTweets.addAll(list);
-        notifyDataSetChanged();
     }
 
 }
