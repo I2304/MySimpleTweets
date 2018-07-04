@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tvBody"/>
+        android:layout_alignStart="@+id/tvBody"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/tvBody"
@@ -28,5 +29,6 @@
         android:layout_below="@+id/tvUserName"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/black"/>
 </RelativeLayout>

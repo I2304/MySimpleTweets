@@ -2,14 +2,17 @@ package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -31,18 +34,18 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     public static final int REQUEST_CODE = 1;
     private SwipeRefreshLayout swipeContainer;
+    private Toolbar toolbar;
+    private ProgressBar progressBar;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        progressBar = (ProgressBar) findViewById(R.id.pbLoading);
+        toolbar =  (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         context = this;
         client = TwitterApplication.getRestClient(context);
         // find the recycler view
@@ -76,6 +79,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void populateTimeline() {
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -94,6 +98,7 @@ public class TimelineActivity extends AppCompatActivity {
                     catch (JSONException e){
                         e.printStackTrace();
                     }
+                    hideProgressBar();
                 }
                 // convert each object into a Tweet model
                 // add that Tweet model to our data source
@@ -103,18 +108,21 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.d("Twitter Client", response.toString());
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("Twitter Client", responseString);
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 Log.d("Twitter Client", errorResponse.toString());
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
             @Override
@@ -125,7 +133,7 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
-    public void onComposeAction(MenuItem mi) {
+    public void onComposeAction(View v) {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
         startActivityForResult(i, REQUEST_CODE);
     }
@@ -146,6 +154,7 @@ public class TimelineActivity extends AppCompatActivity {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
+        showProgressBar();
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers,
@@ -160,14 +169,25 @@ public class TimelineActivity extends AppCompatActivity {
 
                 // Now we call setRefreshing(false) to signal refresh has finished
                 swipeContainer.setRefreshing(false);
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers,
                                   java.lang.Throwable throwable, org.json.JSONArray errorResponse) {
                 Log.d("DEBUG", "Fetch timeline error: " + throwable.toString());
+                hideProgressBar();
             }
         });
     }
 
+    public void showProgressBar() {
+        // Show progress item
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        progressBar.setVisibility(View.INVISIBLE);
+    }
 }

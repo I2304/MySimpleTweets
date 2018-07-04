@@ -4,28 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ComposeActivity">
+    tools:context=".ComposeActivity"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/white"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="@android:color/black">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <ProgressBar
+                android:id="@+id/pbLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="79dp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Compose"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
     <EditText
         android:id="@+id/et_simple"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></EditText>
+        android:layout_height="339dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:hint="What's hapenning?"
+        android:textColor="@color/black"
+        android:textColorHint="@color/medium_gray"></EditText>
 
     <Button
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/et_simple"
+        android:background="@color/twitter_blue"
         android:onClick="onSubmit"
-        android:text="Post" />
+        android:text="TWEET" />
 
     <TextView
         android:id="@+id/tvCount"
         android:layout_width="122dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_below="@+id/et_simple"
-        android:text="Character Count" />
+        android:layout_toStartOf="@+id/btnPost"
+        android:text="140"
+        android:textColor="@color/medium_gray"/>
 
 </RelativeLayout>

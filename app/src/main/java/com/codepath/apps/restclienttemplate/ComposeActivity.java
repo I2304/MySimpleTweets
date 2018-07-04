@@ -9,8 +9,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,11 +27,13 @@ public class ComposeActivity extends AppCompatActivity {
     Context context;
     String message;
     TextView tvCount;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+        progressBar = (ProgressBar) findViewById(R.id.pbLoading);
         context = this;
         client = TwitterApplication.getRestClient(context);
 
@@ -56,13 +58,10 @@ public class ComposeActivity extends AppCompatActivity {
 
             }
         });
-
-        // set the title bar to reflect the purpose of the view
-        getSupportActionBar().setTitle("Compose Tweet");
     }
 
     public void onSubmit(View v) {
-        Toast.makeText(this, "Hello There", Toast.LENGTH_LONG).show();
+        showProgressBar();
         EditText simpleEditText = (EditText) findViewById(R.id.et_simple);
         message = simpleEditText.getText().toString();
         client.sendTweet(message, new JsonHttpResponseHandler() {
@@ -78,20 +77,34 @@ public class ComposeActivity extends AppCompatActivity {
                 catch (JSONException e) {
                     e.printStackTrace();
                 }
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("Twitter Client", responseString);
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 Log.d("Twitter Client", errorResponse.toString());
                 throwable.printStackTrace();
+                hideProgressBar();
             }
 
         });
+    }
+
+
+    public void showProgressBar() {
+        // Show progress item
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        progressBar.setVisibility(View.INVISIBLE);
     }
 }
