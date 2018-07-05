@@ -36,6 +36,7 @@ public class TimelineActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
     private Toolbar toolbar;
     private ProgressBar progressBar;
+    Boolean reply = Boolean.FALSE;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -135,6 +136,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onComposeAction(View v) {
         Intent i = new Intent(TimelineActivity.this, ComposeActivity.class);
+        i.putExtra("reply", reply);
         startActivityForResult(i, REQUEST_CODE);
     }
 

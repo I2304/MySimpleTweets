@@ -28,6 +28,9 @@ public class ComposeActivity extends AppCompatActivity {
     String message;
     TextView tvCount;
     private ProgressBar progressBar;
+    Boolean reply;
+    String userName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,15 @@ public class ComposeActivity extends AppCompatActivity {
 
         final EditText simpleEditText = (EditText) findViewById(R.id.et_simple);
         tvCount = (TextView) findViewById(R.id.tvCount);
+        reply = getIntent().getBooleanExtra("reply", false);
         message = simpleEditText.getText().toString();
+
+        if (reply) {
+            userName = getIntent().getStringExtra("name");
+            simpleEditText.setText("@" + userName + " ");
+            simpleEditText.setSelection(simpleEditText.getText().length());
+        }
+
         simpleEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
