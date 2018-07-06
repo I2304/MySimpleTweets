@@ -31,4 +31,18 @@
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="TextView"
         android:textColor="@color/black"/>
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/ivProfileImage"
+        android:layout_toEndOf="@id/ivProfileImage"
+        android:layout_below="@id/tvBody"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        />
 </RelativeLayout>

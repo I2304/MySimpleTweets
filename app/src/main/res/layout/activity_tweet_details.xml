@@ -70,22 +70,60 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="99dp"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="20dp" />
+        android:textSize="15dp" />
 
     <Button
         android:id="@+id/btnReply"
-        android:layout_width="354dp"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/light_gray"
-        android:text="Tweet your reply                                                     "
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/twitter_blue_30"
+        android:onClick="onReply"
+        android:text="Tweet your reply                                                               "
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:onClick="onReply"/>
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/btnRetweet"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:onClick="onRetweet"
+        android:src="@drawable/ic_vector_retweet" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPhoto"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
+        android:layout_below="@+id/tvBody"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/ivProfileImage"
+        android:layout_toEndOf="@id/ivProfileImage"
+        android:layout_below="@id/tvBody"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="10dp"
+        />
 
 </RelativeLayout>

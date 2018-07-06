@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.models.Entities;
+import com.codepath.apps.restclienttemplate.models.Media;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -47,6 +49,21 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         holder.tvBody.setText(tweet.body);
 
         Glide.with(context).load(tweet.user.profileImageUrl).into(holder.ivProfileImage);
+        Entities entities = tweet.entities;
+        String mediaUrl = null;
+        if (entities != null) {
+            List<Media> media = entities.media;
+            if (!media.isEmpty()) {
+                mediaUrl = media.get(0).mediaUrl;
+            }
+        }
+        if (mediaUrl != null) {
+            Glide.with(context).load(mediaUrl).into(holder.ivMedia);
+            holder.ivMedia.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.ivMedia.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -71,12 +88,14 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         public ImageView ivProfileImage;
         public TextView tvUserName;
         public TextView tvBody;
+        public ImageView ivMedia;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
+            ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
             itemView.setOnClickListener(this);
         }
 

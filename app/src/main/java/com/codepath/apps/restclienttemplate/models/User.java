@@ -2,9 +2,11 @@ package com.codepath.apps.restclienttemplate.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.io.Serializable;
 
+@Parcel
 public class User implements Serializable{
     // list of the attributes
     public String name;
@@ -13,7 +15,7 @@ public class User implements Serializable{
     public String profileImageUrl;
 
     // deserialize the JSON
-    public static User fromJSON(JSONObject jsonObject) throws JSONException{
+    public static User fromJSON(JSONObject jsonObject) throws JSONException {
         User user = new User();
 
         // extract and fill the values

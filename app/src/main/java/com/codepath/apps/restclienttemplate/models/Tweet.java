@@ -15,6 +15,7 @@ public class Tweet implements Serializable{
     public long uid;
     public User user;
     public String createdAt;
+    public Entities entities;
 
     // deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -25,6 +26,8 @@ public class Tweet implements Serializable{
         tweet.uid = jsonObject.getLong("id");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+        JSONObject entities = jsonObject.optJSONObject("entities");
+        tweet.entities = entities == null ? null : Entities.fromJSON(entities);
         return tweet;
     }
 
