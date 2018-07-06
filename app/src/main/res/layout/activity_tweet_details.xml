@@ -104,6 +104,16 @@
         android:onClick="onRetweet"
         android:src="@drawable/ic_vector_retweet" />
 
+    <ImageButton
+        android:id="@+id/btnFavorite"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/btnRetweet"
+        android:onClick="onFavorite"
+        android:src="@drawable/ic_vector_heart_stroke" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -117,7 +118,6 @@ public class TweetDetailsActivity extends AppCompatActivity {
         });
     }
 
-
     public void showProgressBar() {
         // Show progress item
         progressBar.setVisibility(View.VISIBLE);
@@ -126,5 +126,17 @@ public class TweetDetailsActivity extends AppCompatActivity {
     public void hideProgressBar() {
         // Hide progress item
         progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void onFavorite(View view) {
+        ImageButton aButton = (ImageButton)view;
+        if (!tweet.favorite) {
+            aButton.setImageResource(R.drawable.ic_vector_heart);
+        }
+        else {
+            aButton.setImageResource(R.drawable.ic_vector_heart_stroke);
+        }
+
+        tweet.favorite = !tweet.favorite;
     }
 }

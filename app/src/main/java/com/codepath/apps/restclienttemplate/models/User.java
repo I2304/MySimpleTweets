@@ -23,8 +23,6 @@ public class User implements Serializable{
         user.uid = jsonObject.getLong("id");
         user.screenName = jsonObject.getString("screen_name");
         user.profileImageUrl = jsonObject.getString("profile_image_url");
-
         return user;
-
     }
 }

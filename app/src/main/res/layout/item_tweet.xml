@@ -50,4 +50,23 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tvUserName"
+        android:text="TextView"
+        android:textColor="@color/twitter_blue"/>
+
 </RelativeLayout>

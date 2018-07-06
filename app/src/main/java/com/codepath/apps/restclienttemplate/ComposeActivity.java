@@ -18,6 +18,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -61,6 +62,9 @@ public class ComposeActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int length = simpleEditText.length();
                 int remaining = 140 - length;
+                if (reply) {
+                    remaining += (userName.length() + 1);
+                }
                 tvCount.setText(String.format("%d out of 140", remaining));
             }
 
@@ -81,7 +85,7 @@ public class ComposeActivity extends AppCompatActivity {
                 try {
                     Tweet tweet = Tweet.fromJSON(response);
                     Intent data = new Intent();
-                    data.putExtra("tweet", tweet);
+                    data.putExtra("tweet", Parcels.wrap(tweet));
                     setResult(RESULT_OK, data);
                     finish();
                 }
@@ -92,14 +96,16 @@ public class ComposeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+            public void onFailure(int statusCode, Header[] headers, String responseString,
+                                  Throwable throwable) {
                 Log.d("Twitter Client", responseString);
                 throwable.printStackTrace();
                 hideProgressBar();
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                  JSONArray errorResponse) {
                 Log.d("Twitter Client", errorResponse.toString());
                 throwable.printStackTrace();
                 hideProgressBar();
