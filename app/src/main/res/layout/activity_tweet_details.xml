@@ -62,7 +62,9 @@
         android:layout_below="@+id/toolbar"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="30dp"/>
+        android:textSize="30dp"
+        android:autoLink="all"
+        android:linksClickable="true"/>
 
     <TextView
         android:id="@+id/tvBody"
@@ -73,18 +75,20 @@
         android:layout_marginTop="99dp"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:autoLink="all"
+        android:linksClickable="true"
+        />
 
     <Button
         android:id="@+id/btnReply"
-        android:layout_width="360dp"
+        android:layout_width="348dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/twitter_blue_30"
+        android:backgroundTint="@color/light_gray"
         android:onClick="onReply"
-        android:text="Tweet your reply                                                               "
+        android:text="Tweet your reply...                                                         "
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/black"
