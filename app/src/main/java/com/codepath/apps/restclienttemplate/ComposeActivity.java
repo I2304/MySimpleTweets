@@ -30,13 +30,14 @@ public class ComposeActivity extends AppCompatActivity {
     TextView tvCount;
     private ProgressBar progressBar;
     Boolean reply;
-    String userName;
+    long uid;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
+
         progressBar = (ProgressBar) findViewById(R.id.pbLoading);
         context = this;
         client = TwitterApplication.getRestClient(context);
@@ -47,8 +48,7 @@ public class ComposeActivity extends AppCompatActivity {
         message = simpleEditText.getText().toString();
 
         if (reply) {
-            userName = getIntent().getStringExtra("name");
-            simpleEditText.setText("@" + userName + " ");
+            uid = getIntent().getLongExtra("inReplyTo", 0);
             simpleEditText.setSelection(simpleEditText.getText().length());
         }
 
@@ -62,9 +62,6 @@ public class ComposeActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 int length = simpleEditText.length();
                 int remaining = 140 - length;
-                if (reply) {
-                    remaining += (userName.length() + 1);
-                }
                 tvCount.setText(String.format("%d out of 140", remaining));
             }
 
@@ -79,39 +76,77 @@ public class ComposeActivity extends AppCompatActivity {
         showProgressBar();
         EditText simpleEditText = (EditText) findViewById(R.id.et_simple);
         message = simpleEditText.getText().toString();
-        client.sendTweet(message, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    Tweet tweet = Tweet.fromJSON(response);
-                    Intent data = new Intent();
-                    data.putExtra("tweet", Parcels.wrap(tweet));
-                    setResult(RESULT_OK, data);
-                    finish();
+        if (!reply) {
+            client.sendTweet(message, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        Tweet tweet = Tweet.fromJSON(response);
+                        Intent data = new Intent();
+                        data.putExtra("tweet", Parcels.wrap(tweet));
+                        setResult(RESULT_OK, data);
+                        finish();
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    hideProgressBar();
                 }
-                catch (JSONException e) {
-                    e.printStackTrace();
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString,
+                                      Throwable throwable) {
+                    Log.d("Twitter Client", responseString);
+                    throwable.printStackTrace();
+                    hideProgressBar();
                 }
-                hideProgressBar();
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString,
-                                  Throwable throwable) {
-                Log.d("Twitter Client", responseString);
-                throwable.printStackTrace();
-                hideProgressBar();
-            }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                      JSONArray errorResponse) {
+                    Log.d("Twitter Client", errorResponse.toString());
+                    throwable.printStackTrace();
+                    hideProgressBar();
+                }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable,
-                                  JSONArray errorResponse) {
-                Log.d("Twitter Client", errorResponse.toString());
-                throwable.printStackTrace();
-                hideProgressBar();
-            }
+            });
+        }
 
-        });
+        else {
+            client.sendTweet(message, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        Tweet tweet = Tweet.fromJSON(response);
+                        Intent data = new Intent();
+                        data.putExtra("tweet", Parcels.wrap(tweet));
+                        setResult(RESULT_OK, data);
+                        finish();
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    hideProgressBar();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString,
+                                      Throwable throwable) {
+                    Log.d("Twitter Client", responseString);
+                    throwable.printStackTrace();
+                    hideProgressBar();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                      JSONArray errorResponse) {
+                    Log.d("Twitter Client", errorResponse.toString());
+                    throwable.printStackTrace();
+                    hideProgressBar();
+                }
+
+            }, uid);
+        }
     }
 
 

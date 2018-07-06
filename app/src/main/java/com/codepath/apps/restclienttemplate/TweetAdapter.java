@@ -3,6 +3,7 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,9 @@ import com.codepath.apps.restclienttemplate.models.Media;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
     List<Tweet> mTweets;
@@ -87,21 +91,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     // create ViewHolder class
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ImageView ivProfileImage;
-        public TextView tvUserName;
-        public TextView tvBody;
-        public ImageView ivMedia;
-        public TextView tvTime;
-        public TextView tvScreenName;
+
+        @Nullable
+        @BindView(R.id.ivProfileImage) ImageView ivProfileImage;
+        @Nullable
+        @BindView(R.id.ivMedia) ImageView ivMedia;
+
+        @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.tvTime) TextView tvTime;
+        @BindView(R.id.tvBody) TextView tvBody;
+        @BindView(R.id.tvScreenName) TextView tvScreenName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
-            tvUserName = (TextView) itemView.findViewById(R.id.tvUserName);
-            tvBody = (TextView) itemView.findViewById(R.id.tvBody);
-            ivMedia = (ImageView) itemView.findViewById(R.id.ivMedia);
-            tvTime = (TextView) itemView.findViewById(R.id.tvTime);
-            tvScreenName = (TextView) itemView.findViewById(R.id.tvScreenName);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

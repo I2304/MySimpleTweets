@@ -71,9 +71,10 @@ public class TweetDetailsActivity extends AppCompatActivity {
     }
 
     public void onReply(View view) {
+
         Intent i = new Intent(TweetDetailsActivity.this, ComposeActivity.class);
         i.putExtra("reply", Boolean.TRUE);
-        i.putExtra("name", tvUserName.getText());
+        i.putExtra("inReplyTo", tweet.uid);
         startActivityForResult(i, REQUEST_CODE);
     }
 
@@ -136,7 +137,12 @@ public class TweetDetailsActivity extends AppCompatActivity {
         else {
             aButton.setImageResource(R.drawable.ic_vector_heart_stroke);
         }
-
         tweet.favorite = !tweet.favorite;
+    }
+
+    public void onPerson(View view) {
+        Intent intent = new Intent(TweetDetailsActivity.this, ProfileActivity.class);
+        intent.putExtra("user", tweet.user);
+        startActivity(intent);
     }
 }

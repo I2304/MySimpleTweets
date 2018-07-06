@@ -11,7 +11,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         app:titleTextColor="@android:color/black">
@@ -40,6 +41,15 @@
                 android:textColor="@android:color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="47dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp"
+                app:srcCompat="@drawable/ic_launcher_twitter_round" />
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
@@ -97,22 +107,34 @@
     <ImageButton
         android:id="@+id/btnRetweet"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
+        android:layout_width="61dp"
+        android:layout_height="34dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="11dp"
         android:onClick="onRetweet"
         android:src="@drawable/ic_vector_retweet" />
 
     <ImageButton
         android:id="@+id/btnFavorite"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
+        android:layout_width="57dp"
+        android:layout_height="38dp"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/btnRetweet"
+        android:layout_marginEnd="86dp"
         android:onClick="onFavorite"
         android:src="@drawable/ic_vector_heart_stroke" />
+
+    <ImageButton
+        android:id="@+id/btnProfile"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="64dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tvUserName"
+        android:onClick="onPerson"
+        android:src="@drawable/ic_vector_person" />
 
     <ImageView
         android:layout_width="wrap_content"

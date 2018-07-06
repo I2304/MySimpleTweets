@@ -51,7 +51,7 @@
         android:layout_below="@+id/toolbar"
         android:hint="What's hapenning?"
         android:textColor="@color/black"
-        android:textColorHint="@color/medium_gray"></EditText>
+        android:textColorHint="@color/medium_gray"/>
 
     <Button
         android:id="@+id/btnPost"
