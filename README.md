@@ -1,4 +1,4 @@
-# Project 3 - *Name of App Here*
+# Project 3 - *SimpleTweets*
 
 **Name of your app** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
@@ -28,7 +28,7 @@ The following **optional** features are implemented:
   * [X] User that wrote the original tweet is **automatically "@" replied in compose**
 * [X] User can tap a tweet to **open a detailed tweet view**
   * [X] User can **take favorite (and unfavorite) or reweet** actions on a tweet
-* [ ] User can **see embedded image media within a tweet** on list or detail view.
+* [X] User can **see embedded image media within a tweet** on list or detail view.
 
 The following **bonus** features are implemented:
 
