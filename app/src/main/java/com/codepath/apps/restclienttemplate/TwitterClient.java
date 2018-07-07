@@ -74,7 +74,6 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", message);
 		params.put("in_reply_to_status_id", uid);
 		params.put("auto_populate_reply_metadata", true);
-
 		client.post(apiUrl, params, handler);
 	}
 }
